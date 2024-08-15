@@ -1,15 +1,21 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-
+import {
+  Injectable,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
-
 import { PostDto } from './dto/post.dto';
+import { AllPostsDto } from './dto/all-posts.dto';
+import { SinglePostDto } from './dto/single-post.dto';
+import { PostBaseDto } from './dto/post-base.dto';
+import { CompletePostDto } from './dto/complete-post.dto';
 
 @Injectable()
 export class PostsService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async findAll(paginationDto: PaginationDto) {
+  async findAll(paginationDto: PaginationDto): Promise<AllPostsDto> {
     const { page = 1, limit = 10 } = paginationDto;
     const skip = (page - 1) * limit;
     const take = limit;
@@ -30,7 +36,7 @@ export class PostsService {
     };
   }
 
-  async findOne(id: string) {
+  async findOne(id: string): Promise<SinglePostDto> {
     const post = await this.prismaService.post.findUnique({
       where: { post_id: id },
       include: { content: true },
@@ -43,8 +49,16 @@ export class PostsService {
     return post;
   }
 
-  async create(postDto: PostDto) {
+  async create(postDto: PostDto): Promise<PostBaseDto> {
     const { title, shortDesc, featuredImg, postImg, content } = postDto;
+
+    const existingPost = await this.prismaService.post.findFirst({
+      where: { title },
+    });
+
+    if (existingPost) {
+      throw new ConflictException('Post with the same title already exists');
+    }
 
     const post = await this.prismaService.post.create({
       data: {
@@ -67,7 +81,10 @@ export class PostsService {
     return post;
   }
 
-  async update(id: string, updatePostDto: Partial<PostDto>) {
+  async update(
+    id: string,
+    updatePostDto: Partial<PostDto>,
+  ): Promise<CompletePostDto> {
     const { title, shortDesc, postImg, content } = updatePostDto;
 
     const existingPost = await this.prismaService.post.findUnique({
@@ -76,6 +93,16 @@ export class PostsService {
 
     if (!existingPost) {
       throw new NotFoundException(`Post with ID ${id} not found`);
+    }
+
+    if (title && title !== existingPost.title) {
+      const titleExists = await this.prismaService.post.findFirst({
+        where: { title },
+      });
+
+      if (titleExists) {
+        throw new ConflictException('Post with the same title already exists');
+      }
     }
 
     const post = await this.prismaService.post.update({

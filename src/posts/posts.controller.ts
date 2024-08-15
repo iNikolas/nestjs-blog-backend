@@ -19,6 +19,10 @@ import {
 import { PostsService } from './posts.service';
 import { PostDto } from './dto/post.dto';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { AllPostsDto } from './dto/all-posts.dto';
+import { SinglePostDto } from './dto/single-post.dto';
+import { PostBaseDto } from './dto/post-base.dto';
+import { CompletePostDto } from './dto/complete-post.dto';
 
 @ApiTags('Posts')
 @Controller('posts')
@@ -42,18 +46,7 @@ export class PostsController {
   @ApiResponse({
     status: 200,
     description: 'List of posts',
-    schema: {
-      type: 'object',
-      properties: {
-        data: {
-          type: 'array',
-          items: { $ref: '#/components/schemas/PostDto' },
-        },
-        total: { type: 'number' },
-        page: { type: 'number' },
-        limit: { type: 'number' },
-      },
-    },
+    type: AllPostsDto,
   })
   async findAll(@Query() paginationDto: PaginationDto) {
     return this.postsService.findAll(paginationDto);
@@ -69,7 +62,7 @@ export class PostsController {
   @ApiResponse({
     status: 200,
     description: 'Post details',
-    schema: { $ref: '#/components/schemas/PostDto' },
+    type: SinglePostDto,
   })
   @ApiResponse({ status: 404, description: 'Post not found' })
   async findOne(@Param('id') id: string) {
@@ -82,7 +75,7 @@ export class PostsController {
   @ApiResponse({
     status: 201,
     description: 'The created post',
-    schema: { $ref: '#/components/schemas/PostDto' },
+    type: PostBaseDto,
   })
   async create(@Body() postDto: PostDto) {
     return this.postsService.create(postDto);
@@ -99,7 +92,7 @@ export class PostsController {
   @ApiResponse({
     status: 200,
     description: 'The updated post',
-    schema: { $ref: '#/components/schemas/PostDto' },
+    type: CompletePostDto,
   })
   @ApiResponse({ status: 404, description: 'Post not found' })
   async update(
