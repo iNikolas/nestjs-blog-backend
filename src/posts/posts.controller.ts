@@ -7,6 +7,7 @@ import {
   Body,
   Param,
   Query,
+  ValidationPipe,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -48,7 +49,15 @@ export class PostsController {
     description: 'List of posts',
     type: AllPostsDto,
   })
-  async findAll(@Query() paginationDto: PaginationDto) {
+  async findAll(
+    @Query(
+      new ValidationPipe({
+        transform: true,
+        transformOptions: { enableImplicitConversion: true },
+      }),
+    )
+    paginationDto: PaginationDto,
+  ) {
     return this.postsService.findAll(paginationDto);
   }
 
