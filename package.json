@@ -1,8 +1,12 @@
 {
   "name": "personal-blog",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "A scalable and modular RESTful API for managing blog posts, built with NestJS, TypeScript, and MongoDB",
+  "author": "Mykola Lebid <realkolos1@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iNikolas/nestjs-blog-backend"
+  },
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -71,5 +75,10 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  }
+  },
+  "keywords": [
+    "nest.js",
+    "blog",
+    "post"
+  ]
 }
