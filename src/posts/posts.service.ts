@@ -24,6 +24,7 @@ export class PostsService {
       skip,
       take,
       include: { meta: true },
+      orderBy: { created_at: 'desc' },
     });
 
     const total = await this.prismaService.post.count();
