@@ -138,10 +138,20 @@ export class PostsService {
       throw new NotFoundException(`Post with ID ${id} not found`);
     }
 
-    await this.prismaService.post.delete({
-      where: { post_id: id },
-    });
+    await this.prismaService.$transaction([
+      this.prismaService.postMeta.delete({
+        where: { post_id: id },
+      }),
+      this.prismaService.postContent.delete({
+        where: { post_id: id },
+      }),
+      this.prismaService.post.delete({
+        where: { post_id: id },
+      }),
+    ]);
 
-    return { message: `Post with ID ${id} has been deleted` };
+    return {
+      message: `Post with ID ${id} and its related data have been deleted`,
+    };
   }
 }

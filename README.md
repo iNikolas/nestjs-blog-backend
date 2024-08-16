@@ -64,3 +64,13 @@ http://localhost:8000/api
 ```
 
 This will open the Swagger UI where you can explore the API endpoints and their details.
+
+## Deployment
+
+1. **Frontend:** [Vercel](https://nextjs-blog-frontend-one.vercel.app/)
+
+2. **Backend:** [Render](https://nestjs-blog-backend.onrender.com)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENCE) file for details.
