@@ -65,12 +65,20 @@ http://localhost:8000/api
 
 This will open the Swagger UI where you can explore the API endpoints and their details.
 
+Alternatively you can view deployed documentation by the next link: [Deployed Api Documentation](https://nestjs-blog-backend.onrender.com/api)
+
 ## Deployment
 
-1. **Frontend:** [Vercel](https://nextjs-blog-frontend-one.vercel.app/)
+    - **Frontend:** Deployed on[Vercel](https://nextjs-blog-frontend-one.vercel.app/)
 
-2. **Backend:** [Render](https://nestjs-blog-backend.onrender.com)
+    - **Backend:** Deployed on [Render](https://nestjs-blog-backend.onrender.com)
+
+## Contributing
+
+We welcome contributions! If you would like to make significant changes, please open an issue first to discuss your ideas.
+
+You can find frontend source code [here](https://github.com/iNikolas/nextjs-blog-frontend)
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENCE) file for details.
+[MIT](https://choosealicense.com/licenses/mit/)
