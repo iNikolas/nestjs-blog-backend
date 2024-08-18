@@ -69,9 +69,8 @@ Alternatively you can view deployed documentation by the next link: [Deployed Ap
 
 ## Deployment
 
-    - **Frontend:** Deployed on[Vercel](https://nextjs-blog-frontend-one.vercel.app/)
-
-    - **Backend:** Deployed on [Render](https://nestjs-blog-backend.onrender.com)
+- **Frontend:** Deployed on[Vercel](https://nextjs-blog-frontend-one.vercel.app/)
+- **Backend:** Deployed on [Render](https://nestjs-blog-backend.onrender.com)
 
 ## Contributing
 
